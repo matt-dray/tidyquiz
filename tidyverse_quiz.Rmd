@@ -1,0 +1,90 @@
+---
+title: "Tidyverse functions quiz"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(pacman)
+tidy_pkg <- tidyverse_packages()
+tidy_pkg <- ifelse(str_detect(tidy_pkg, "readxl") == TRUE, "readxl", tidy_pkg)
+p_load(char = tidy_pkg, character.only = TRUE)
+
+tidy_fun <- tidy_pkg %>% 
+  enframe(name = NULL, value = "package") %>% 
+  mutate(functions = map(package, ~p_functions(.x, character.only = TRUE))) %>% 
+  unnest()
+```
+
+### Question 1
+
+```{r q1}
+tidy_sample <- sample_n(tidy_fun, 1)
+fun_question <- select(tidy_sample, functions) %>% pull()
+
+pkg_correct <- tidy_sample %>% select(package) %>% pull()
+pkg_wrong1 <- tidy_fun %>% distinct(package) %>% filter(package != pkg_correct) %>% sample_n(1) %>% pull()
+pkg_wrong2 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1)) %>% sample_n(1) %>% pull()
+pkg_wrong3 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1, pkg_wrong2)) %>% sample_n(1) %>% pull()
+
+quiz(
+  question(
+    paste0("The function `", fun_question, "` is from which tidyverse package?"),
+    answer(paste0("{", pkg_correct, "}"), correct = TRUE),
+    answer(paste0("{", pkg_wrong1, "}")),
+    answer(paste0("{", pkg_wrong2, "}")),
+    answer(paste0("{", pkg_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+### Question 2
+
+```{r q2}
+tidy_sample <- sample_n(tidy_fun, 1)
+fun_question <- select(tidy_sample, functions) %>% pull()
+
+pkg_correct <- tidy_sample %>% select(package) %>% pull()
+pkg_wrong1 <- tidy_fun %>% distinct(package) %>% filter(package != pkg_correct) %>% sample_n(1) %>% pull()
+pkg_wrong2 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1)) %>% sample_n(1) %>% pull()
+pkg_wrong3 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1, pkg_wrong2)) %>% sample_n(1) %>% pull()
+
+quiz(
+  question(
+    paste0("The function `", fun_question, "` is from which tidyverse package?"),
+    answer(paste0("{", pkg_correct, "}"), correct = TRUE),
+    answer(paste0("{", pkg_wrong1, "}")),
+    answer(paste0("{", pkg_wrong2, "}")),
+    answer(paste0("{", pkg_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+### Question 3
+
+```{r q3}
+tidy_sample <- sample_n(tidy_fun, 1)
+fun_question <- select(tidy_sample, functions) %>% pull()
+
+pkg_correct <- tidy_sample %>% select(package) %>% pull()
+pkg_wrong1 <- tidy_fun %>% distinct(package) %>% filter(package != pkg_correct) %>% sample_n(1) %>% pull()
+pkg_wrong2 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1)) %>% sample_n(1) %>% pull()
+pkg_wrong3 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1, pkg_wrong2)) %>% sample_n(1) %>% pull()
+
+quiz(
+  question(
+    paste0("The function `", fun_question, "` is from which tidyverse package?"),
+    answer(paste0("{", pkg_correct, "}"), correct = TRUE),
+    answer(paste0("{", pkg_wrong1, "}")),
+    answer(paste0("{", pkg_wrong2, "}")),
+    answer(paste0("{", pkg_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
