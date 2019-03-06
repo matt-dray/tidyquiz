@@ -5,11 +5,12 @@ runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
 
+library(learnr)
 library(tidyverse)
 library(pacman)
+
 tidy_pkg <- tidyverse_packages()
 tidy_pkg <- ifelse(str_detect(tidy_pkg, "readxl") == TRUE, "readxl", tidy_pkg)
 p_load(char = tidy_pkg, character.only = TRUE)
@@ -19,8 +20,6 @@ tidy_fun <- tidy_pkg %>%
   mutate(functions = map(package, ~p_functions(.x, character.only = TRUE))) %>% 
   unnest()
 ```
-
-### Question 1
 
 ```{r q1}
 tidy_sample <- sample_n(tidy_fun, 1)
@@ -32,6 +31,7 @@ pkg_wrong2 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_corr
 pkg_wrong3 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1, pkg_wrong2)) %>% sample_n(1) %>% pull()
 
 quiz(
+  caption = "Question 1",
   question(
     paste0("The function `", fun_question, "` is from which tidyverse package?"),
     answer(paste0("{", pkg_correct, "}"), correct = TRUE),
@@ -42,8 +42,6 @@ quiz(
   )
 )
 ```
-
-### Question 2
 
 ```{r q2}
 tidy_sample <- sample_n(tidy_fun, 1)
@@ -55,6 +53,7 @@ pkg_wrong2 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_corr
 pkg_wrong3 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1, pkg_wrong2)) %>% sample_n(1) %>% pull()
 
 quiz(
+  caption = "Question 2",
   question(
     paste0("The function `", fun_question, "` is from which tidyverse package?"),
     answer(paste0("{", pkg_correct, "}"), correct = TRUE),
@@ -66,8 +65,6 @@ quiz(
 )
 ```
 
-### Question 3
-
 ```{r q3}
 tidy_sample <- sample_n(tidy_fun, 1)
 fun_question <- select(tidy_sample, functions) %>% pull()
@@ -78,6 +75,7 @@ pkg_wrong2 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_corr
 pkg_wrong3 <- tidy_fun %>% distinct(package) %>% filter(!package %in% c(pkg_correct, pkg_wrong1, pkg_wrong2)) %>% sample_n(1) %>% pull()
 
 quiz(
+  caption = "Question 3",
   question(
     paste0("The function `", fun_question, "` is from which tidyverse package?"),
     answer(paste0("{", pkg_correct, "}"), correct = TRUE),
