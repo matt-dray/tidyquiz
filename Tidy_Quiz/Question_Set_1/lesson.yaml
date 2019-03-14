@@ -1,0 +1,16 @@
+- Class: meta
+  Course: Tidy Quiz
+  Lesson: Question Set 1
+  Author: Matt Dray
+  Type: Standard
+  Version: 2.4.3
+
+- Class: text
+  Output: This is a multiple choice quiz. You'll be presented with a function name and you must select the package it comes from.
+
+- Class: mult_question
+  Output: The function 'minute' is from which tidyverse package?
+  AnswerChoices: lubridate;purrr;readxl;dplyr
+  CorrectAnswer: lubridate
+  AnswerTests: omnitest(correctVal='lubridate')
+  Hint: No hint!
