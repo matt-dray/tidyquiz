@@ -243,3 +243,5 @@ quiz(
   )
 )
 ```
+
+Now return to R and re-run `tidyquiz::generate_quiz()` to get a fresh set of randomised questions.
