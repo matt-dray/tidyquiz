@@ -1,0 +1,247 @@
+---
+title: "Quiz: tidyverse functions"
+date: "Generated `r Sys.time()`"
+author: "By [Matt Dray](https://twitter.com/mattdray)"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+# Set chunk options
+knitr::opts_chunk$set(echo = FALSE)
+
+# Get packages
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(learnr))
+suppressPackageStartupMessages(library(pacman))
+
+# Character vector of tidyverse package names
+tidy_pkgs <-
+  tidyverse::tidyverse_packages() %>%  # calls character vector
+  str_replace("\n", "") %>%  # remove newline
+  str_replace(">=", "") %>%  # remove greater than or equal to
+  str_replace("[:punct:]", "")  # remove punctuation
+  
+# Install and load full set of tidyverse packages
+pacman::p_load(
+  char = tidy_pkgs,
+  character.only = TRUE  # read elements of character vector, not object name
+)
+
+# Tibble where each row is a package-function combination
+tidy_funs <-
+  tidy_pkgs %>% 
+  tibble::enframe(name = NULL, value = "package") %>% 
+  dplyr::mutate(
+    functions = purrr::map(
+      package,
+      ~pacman::p_functions(.x, character.only = TRUE)
+    )
+  ) %>% 
+  tidyr::unnest()
+
+# Function to get questions and answers
+
+get_questions <- function() {
+  
+  # Randomly sample one row of the tidy_funs tibble
+  # Output is a single package-function pair
+  fun_sample <- sample_n(tidy_funs, 1)
+  
+  # Extract just the name of the function
+  fun_name <<- select(fun_sample, functions) %>% pull()
+  
+  # Create lookup of packages that the function is duplicated in
+  # Output is a character vector of packages that the function exists in
+  dup_lookup <- tidy_funs %>% 
+    filter(functions == fun_name) %>% 
+    pull(package)
+  
+  # The correct answer is the one we already isolated
+  ans_correct <<- fun_sample %>% select(package) %>% pull()
+  
+  # Wrong answer 1
+  ans_wrong1 <<- tidy_funs %>%
+    distinct(package) %>%  # get unique packages
+    filter(!package %in% c(dup_lookup)) %>%  # ignore packages containing function
+    sample_n(1) %>%  # choose a remaining package name at random
+    pull()  # to character
+  
+  # Wrong answer 2
+  ans_wrong2 <<- tidy_funs %>%
+    distinct(package) %>%
+    filter(!package %in% c(dup_lookup, ans_wrong1)) %>% # also ignore the first wrong answer
+    sample_n(1) %>%
+    pull()
+  
+  # Wrong answer 3
+  ans_wrong3 <<- tidy_funs %>%
+    distinct(package) %>%
+    filter(!package %in% c(dup_lookup, ans_wrong1, ans_wrong2)) %>%
+    sample_n(1) %>%
+    pull()
+  
+}
+```
+
+```{r q1}
+get_questions()
+
+quiz(
+  caption = "Question 1",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q2}
+get_questions()
+
+quiz(
+  caption = "Question 2",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q3}
+get_questions()
+
+quiz(
+  caption = "Question 3",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q4}
+get_questions()
+
+quiz(
+  caption = "Question 4",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q5}
+get_questions()
+
+quiz(
+  caption = "Question 5",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q6}
+get_questions()
+
+quiz(
+  caption = "Question 6",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q7}
+get_questions()
+
+quiz(
+  caption = "Question 7",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q8}
+get_questions()
+
+quiz(
+  caption = "Question 8",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q9}
+get_questions()
+
+quiz(
+  caption = "Question 9",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+```{r q10}
+get_questions()
+
+quiz(
+  caption = "Question 10",
+  question(
+    paste0("The function `", fun_name, "` is from which tidyverse package?"),
+    answer(paste0("{", ans_correct, "}"), correct = TRUE),
+    answer(paste0("{", ans_wrong1, "}")),
+    answer(paste0("{", ans_wrong2, "}")),
+    answer(paste0("{", ans_wrong3, "}")),
+    random_answer_order = TRUE
+  )
+)
+```
+
+Now return to R and re-run `tidyquiz::generate_quiz()` to get a fresh set of randomised questions.
