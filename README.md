@@ -14,15 +14,23 @@ This repo is in the form of a package so the quiz can be generated (and regenera
 
 ## Install and run
 
-1. Install the package with `remotes::install_github("matt-dray/tidyquiz")`
-1. Call the package with `library(tidyquiz)`
-1. Run `tidyquiz::generate_quiz()` to generate a question set and open the quiz in your browser question set (re-run for a new question set)
+There are a few ways to do it, but the preferred method is:
+
+1. Download the repo at the command line with `git clone https://github.com/matt-dray/tidyquiz.git`
+1. Open the `tidyquiz.Rproj` file to open the project with RStudio
+1. Run `source("R/generate_quiz.R")` and then `generate_quiz()` to generate and open the quiz in-browser
+
+You can re-run `generate_quiz()` for a new set of questions.
 
 ## Notes
 
+### What's happening?
+
+The line `source("R/generate_quiz.R")` adds to the global environment the function that will generate the quiz. When you execute `generate_quiz()` you're rendering the R Markdown file `/quiz/tidy.Rmd` -- which contains the multiple-choice questions -- and running it in your browser. Re-running `generate_quiz()` will re-render and re-run it.
+
 ### Dependencies
 
-This thing works on the fly. It fetches the tidyverse packages and creates questions and answers whenever you run `tidyquiz::generate_quiz()`. This means you should be prepared for the tidyverse packages to be downloaded to your machine. On the plus side, functions presented to you in the quiz will always be current.
+This thing works on the fly. It fetches the tidyverse packages and creates questions and answers whenever you run `generate_quiz()`. This means you should be prepared for the tidyverse packages to be downloaded to your machine. On the plus side, functions presented to you in the quiz will always be current.
 
 The list of packages can be found in `tidyverse::tidyverse_packages()`. At time of writing (2019-03-14) the packages are:
 
@@ -40,4 +48,4 @@ The list of packages can be found in `tidyverse::tidyverse_packages()`. At time 
 
 ### Masking
 
-There's only ever one correct answer from the four presented. If you are presented with a function that exists in multiple packages, the answer set will include one package it definitely exists in and three it definitely doesn't. 
+There's only ever one correct answer from the four presented. If you are presented with a function that exists in multiple packages, the answer set will include one package it definitely exists in and three it definitely doesn't exist in.
