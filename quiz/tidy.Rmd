@@ -1,5 +1,7 @@
 ---
-title: "Tidyverse functions quiz"
+title: "Quiz: tidyverse functions"
+date: "Generated `r Sys.time()`"
+author: "By [Matt Dray](https://twitter.com/mattdray)"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
