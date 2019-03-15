@@ -146,12 +146,17 @@ output$ans_wrong1_out <- renderText({ ans_wrong1() })
 ```
 
 ```{r, button-output}
+# Print these out just to prove the server code is working
 textOutput("fun_name_out")
 textOutput("ans_correct_out")
 textOutput("ans_wrong1_out")
 ```
 
 ```{r q1}
+# This chunk contains a 'regular' quiz()
+# The fun_name, ans_correct and ans_wrong1 are generated in the
+# get_questions() function, specified in the get-questions chunk
+
 get_questions()
 
 quiz(
@@ -166,12 +171,7 @@ quiz(
 ```
 
 ```{r q2}
-# Why won't the render in the quiz()?
-#
-# x <- textOutput("fun_name_out")
-# y <- textOutput("ans_correct_out")
-# z <- textOutput("ans_wrong1_out")
-# 
+# Why won't textOutput() render inside quiz()?
 # 
 # quiz(
 #   caption = "Question 2",
