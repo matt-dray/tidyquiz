@@ -7,8 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "mwdray@gmail.com")
 Description: The package contains a multiple-choice quiz built with {learnr}
-    to test your knowledge of the functions of the tidyverse. You can regenerate
-    the document with new questions using \code{tidyquiz::generate_quiz()}.
+    to test your knowledge of the functions of the tidyverse.
 License: CC0
 Encoding: UTF-8
 LazyData: true
@@ -25,6 +24,7 @@ Suggests:
     crayon,
     dplyr,
     dbplyr,
+    emo,
     forcats,
     ggplot2,
     haven,
