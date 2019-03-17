@@ -59,14 +59,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <tr>
 <td>
 
-<div id="htmlwidget-9a4caf6b867de43824c3" style="width:100%;height:auto;", class = "quiz html-widget">
+<div id="htmlwidget-3f5e303623da6e1e73fa" style="width:100%;height:auto;", class = "quiz html-widget">
 <div class="panel panel-default">
 <div class="panel-body quizArea">
 </div>
 </div>
 </div>
 
-<script type="application/json" data-for="htmlwidget-9a4caf6b867de43824c3">{"x":{"question":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","answers":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"label":"q1-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":false,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","a":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-3f5e303623da6e1e73fa">{"x":{"question":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","answers":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"label":"q1-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":false,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","a":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
 </td>
 </tr>
 </table>
@@ -176,10 +176,10 @@ ans_wrong2 <- eventReactive(
     ans_correct <- fun_sample %>% select(package) %>% pull()
     ans_wrong1 <- tidy_funs %>%
       distinct(package) %>%
-      filter(!package %in% c(dup_lookup, ans_wrong1)) %>% 
-      sample_n(1) %>%
+      filter(!package %in% c(dup_lookup)) %>%  # Also want to exclude ans_wrong1
+      sample_n(1) %>% 
       pull()
-    return(ans_wrong2)
+    return(ans_wrong1)
   }
 )
 output$ans_wrong2_out <- renderText({ paste0("{", ans_wrong2(), "}") })
@@ -197,10 +197,10 @@ ans_wrong3 <- eventReactive(
     ans_correct <- fun_sample %>% select(package) %>% pull()
     ans_wrong1 <- tidy_funs %>%
       distinct(package) %>%
-      filter(!package %in% c(dup_lookup, ans_wrong1, ans_wrong2)) %>% 
+      filter(!package %in% c(dup_lookup)) %>% # Also want to exclude ans_wrong1 and ans_wrong2
       sample_n(1) %>%
       pull()
-    return(ans_wrong3)
+    return(ans_wrong1)
   }
 )
 output$ans_wrong3_out <- renderText({ paste0("{", ans_wrong3(), "}") })

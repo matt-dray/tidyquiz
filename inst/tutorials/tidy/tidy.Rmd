@@ -114,7 +114,7 @@ output$ans_wrong1_out <- renderText({ paste0("{", ans_wrong1(), "}") })
 ans_wrong2 <- eventReactive(
   input$goButton,
   { 
-    set.seed(input$n)
+    set.seed(input$n + 1)
     fun_sample <- sample_n(tidy_funs, 1)
     fun_name <- select(fun_sample, functions) %>% pull()
     dup_lookup <- tidy_funs %>% 
@@ -123,10 +123,10 @@ ans_wrong2 <- eventReactive(
     ans_correct <- fun_sample %>% select(package) %>% pull()
     ans_wrong1 <- tidy_funs %>%
       distinct(package) %>%
-      filter(!package %in% c(dup_lookup, ans_wrong1)) %>% 
-      sample_n(1) %>%
+      filter(!package %in% c(dup_lookup)) %>%  # Also want to exclude ans_wrong1
+      sample_n(1) %>% 
       pull()
-    return(ans_wrong2)
+    return(ans_wrong1)
   }
 )
 output$ans_wrong2_out <- renderText({ paste0("{", ans_wrong2(), "}") })
@@ -135,7 +135,7 @@ output$ans_wrong2_out <- renderText({ paste0("{", ans_wrong2(), "}") })
 ans_wrong3 <- eventReactive(
   input$goButton,
   { 
-    set.seed(input$n)
+    set.seed(input$n + 2)
     fun_sample <- sample_n(tidy_funs, 1)
     fun_name <- select(fun_sample, functions) %>% pull()
     dup_lookup <- tidy_funs %>% 
@@ -144,10 +144,10 @@ ans_wrong3 <- eventReactive(
     ans_correct <- fun_sample %>% select(package) %>% pull()
     ans_wrong1 <- tidy_funs %>%
       distinct(package) %>%
-      filter(!package %in% c(dup_lookup, ans_wrong1, ans_wrong2)) %>% 
+      filter(!package %in% c(dup_lookup)) %>% # Also want to exclude ans_wrong1 and ans_wrong2
       sample_n(1) %>%
       pull()
-    return(ans_wrong3)
+    return(ans_wrong1)
   }
 )
 output$ans_wrong3_out <- renderText({ paste0("{", ans_wrong3(), "}") })
