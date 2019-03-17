@@ -24,7 +24,7 @@ Open the quiz:
 Get a new question:
 
 1. Click 'Start Over' in the menu bar
-2. Choose a new seed
+1. Choose a new seed
 1. Hit 'Go'
 
 ## Notes
