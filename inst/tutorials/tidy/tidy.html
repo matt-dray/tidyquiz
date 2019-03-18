@@ -8,13 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="By Matt Dray" />
 
 
 <meta name="progressive" content="false" />
 <meta name="allow-skip" content="false" />
 
-<title>Quiz: tidyverse functions</title>
+<title>Tidyquiz</title>
 
 
 <!-- highlightjs -->
@@ -59,14 +58,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <tr>
 <td>
 
-<div id="htmlwidget-aa3fc821d8bdc7e6064a" style="width:100%;height:auto;", class = "quiz html-widget">
+<div id="htmlwidget-c73234382e6aeb314f07" style="width:100%;height:auto;", class = "quiz html-widget">
 <div class="panel panel-default">
 <div class="panel-body quizArea">
 </div>
 </div>
 </div>
 
-<script type="application/json" data-for="htmlwidget-aa3fc821d8bdc7e6064a">{"x":{"question":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","answers":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"label":"q1-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":false,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","a":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-c73234382e6aeb314f07">{"x":{"question":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","answers":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"label":"q1-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":false,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","a":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
 </td>
 </tr>
 </table>
@@ -82,30 +81,23 @@ suppressPackageStartupMessages(library(pacman))
 suppressPackageStartupMessages(library(shiny))
 suppressPackageStartupMessages(library(emo))
 
-# Character vector of tidyverse package names
-tidy_pkgs <-
-  tidyverse::tidyverse_packages() %>%  # calls character vector
+# Character vector of tidyverse package names (and try to protect from rogue
+# characters in package name; happened with readxl)
+tidy_pkgs <- tidyverse_packages() %>%  # calls character vector
   str_replace("\n", "") %>%  # remove newline
   str_replace(">=", "") %>%  # remove greater than or equal to
   str_replace("[:punct:]", "")  # remove punctuation
   
 # Install and load full set of tidyverse packages
-pacman::p_load(
-  char = tidy_pkgs,
-  character.only = TRUE  # read elements of character vector, not object name
-)
+# (character.only to read elements of character vector, not object name)
+p_load(char = tidy_pkgs, character.only = TRUE)
 
 # Tibble where each row is a package-function combination
 tidy_funs <-
   tidy_pkgs %>% 
-  tibble::enframe(name = NULL, value = "package") %>% 
-  dplyr::mutate(
-    functions = purrr::map(
-      package,
-      ~pacman::p_functions(.x, character.only = TRUE)
-    )
-  ) %>% 
-  tidyr::unnest()
+  enframe(name = NULL, value = "package") %>% 
+  mutate(functions = map(package, ~p_functions(.x, character.only = TRUE))) %>% 
+  unnest()
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -236,8 +228,8 @@ output$ans_wrong3_out <- renderText({ paste0("{", ans_wrong3(), "}") })
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Quiz: tidyverse functions</h2>
-<h4 class="author"><em>By <a href="https://twitter.com/mattdray">Matt Dray</a></em></h4>
+<h2 class="title toc-ignore" style="display:none;">Tidyquiz</h2>
+<h3 class="subtitle"><em>By <a href="https://twitter.com/mattdray">Matt Dray</a></em></h3>
 </div>
 <!-- end doc-metadata -->
 

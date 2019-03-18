@@ -1,6 +1,6 @@
 ---
-title: "Quiz: tidyverse functions"
-author: "By [Matt Dray](https://twitter.com/mattdray)"
+title: "Tidyquiz"
+subtitle: "By [Matt Dray](https://twitter.com/mattdray)"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -16,30 +16,23 @@ suppressPackageStartupMessages(library(pacman))
 suppressPackageStartupMessages(library(shiny))
 suppressPackageStartupMessages(library(emo))
 
-# Character vector of tidyverse package names
-tidy_pkgs <-
-  tidyverse::tidyverse_packages() %>%  # calls character vector
+# Character vector of tidyverse package names (and try to protect from rogue
+# characters in package name; happened with readxl)
+tidy_pkgs <- tidyverse_packages() %>%  # calls character vector
   str_replace("\n", "") %>%  # remove newline
   str_replace(">=", "") %>%  # remove greater than or equal to
   str_replace("[:punct:]", "")  # remove punctuation
   
 # Install and load full set of tidyverse packages
-pacman::p_load(
-  char = tidy_pkgs,
-  character.only = TRUE  # read elements of character vector, not object name
-)
+# (character.only to read elements of character vector, not object name)
+p_load(char = tidy_pkgs, character.only = TRUE)
 
 # Tibble where each row is a package-function combination
 tidy_funs <-
   tidy_pkgs %>% 
-  tibble::enframe(name = NULL, value = "package") %>% 
-  dplyr::mutate(
-    functions = purrr::map(
-      package,
-      ~pacman::p_functions(.x, character.only = TRUE)
-    )
-  ) %>% 
-  tidyr::unnest()
+  enframe(name = NULL, value = "package") %>% 
+  mutate(functions = map(package, ~p_functions(.x, character.only = TRUE))) %>% 
+  unnest()
 ```
 
 <br>
