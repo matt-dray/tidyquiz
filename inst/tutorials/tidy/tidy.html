@@ -48,8 +48,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Can you select the correct package for the named tidyverse function?</p>
 <ol style="list-style-type: decimal">
 <li>Click ‘Get Question’</li>
-<li>Guess and ‘Submit Answer’</li>
-<li>Click ‘Start Over’ in menu pane (tap ‘Tidyquiz’ above to reveal on mobile )</li>
+<li>Make your guess and ‘Submit Answer’</li>
+<li>Click ‘Start Over’ in menu pane (reveal on mobile by tapping ‘Tidyquiz’)</li>
 <li>Go back to step 1</li>
 </ol>
 <button id="goButton" type="button" class="btn btn-default action-button">Get Question</button>
@@ -60,19 +60,20 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <tr>
 <td>
 
-<div id="htmlwidget-ea04c9da6364dd638a4c" style="width:100%;height:auto;", class = "quiz html-widget">
+<div id="htmlwidget-7cb753d017349ca3516c" style="width:100%;height:auto;", class = "quiz html-widget">
 <div class="panel panel-default">
 <div class="panel-body quizArea">
 </div>
 </div>
 </div>
 
-<script type="application/json" data-for="htmlwidget-ea04c9da6364dd638a4c">{"x":{"question":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","answers":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"label":"q1-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":false,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","a":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-7cb753d017349ca3516c">{"x":{"question":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","answers":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"label":"q1-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":false,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"<div id=\"fun_name_out\" class=\"shiny-text-output\"><\/div>\n","a":[{"option":"<div id=\"ans_correct_out\" class=\"shiny-text-output\"><\/div>\n","correct":true,"message":null},{"option":"<div id=\"ans_wrong1_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong2_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null},{"option":"<div id=\"ans_wrong3_out\" class=\"shiny-text-output\"><\/div>\n","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
 </td>
 </tr>
 </table>
 </div>
-Made with <a href="https://rstudio.github.io/learnr/">{learnr}</a>, the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="https://cran.r-project.org/web/packages/pacman/index.html">{pacman}</a>. 
+<p>Made with <a href="https://rstudio.github.io/learnr/">{learnr}</a>, the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="https://cran.r-project.org/web/packages/pacman/index.html">{pacman}</a>.</p>
+<a href="https://www.rostrum.blog/2019/03/18/tidyverse-quiz/">Read a blogpost about this.</a> 
 <script type="application/shiny-prerendered" data-context="server-start">
 # Set chunk options
 knitr::opts_chunk$set(echo = FALSE)
@@ -182,19 +183,21 @@ output$ans_wrong1_out <- renderText({ paste0("{", ans_wrong1(), "}") })
 ans_wrong2 <- eventReactive(
   input$goButton,
   { 
+    # Recreate ans_correct so we don't set it as a wrong answer as well
     seed_val <- seed()
     set.seed(seed_val)
     fun_sample <- sample_n(tidy_funs, 1)
     fun_name <- select(fun_sample, functions) %>% pull()
     ans_correct <- fun_sample %>% select(package) %>% pull()
-    dup_lookup <- tidy_funs %>% 
-      filter(functions == fun_name) %>% 
-      pull(package)
+    # Also get packages that have a function with the same name as ans_correct
+    # so we don't see these as a wrong answer as well
+    dup_lookup <-  filter(tidy_funs, functions == fun_name) %>% pull(package)
+    # Slightly alter the seed to generate a wrong answer
     set.seed(seed_val + 2)  # needs to be a different seed to ans_wrong1
     wrong1 <- ans_wrong1()
     ans_wrong2 <- tidy_funs %>%
       distinct(package) %>%
-      filter(!package %in% c(dup_lookup, wrong1)) %>%
+      filter(!package %in% c(dup_lookup, wrong1)) %>%  # also exclude pre-selected wrong answer
       sample_n(1) %>% 
       pull()
     return(ans_wrong2)
@@ -208,20 +211,22 @@ output$ans_wrong2_out <- renderText({ paste0("{", ans_wrong2(), "}") })
 ans_wrong3 <- eventReactive(
   input$goButton,
   { 
+    # Recreate ans_correct so we don't set it as a wrong answer as well
     seed_val <- seed()
     set.seed(seed_val)
     fun_sample <- sample_n(tidy_funs, 1)
     fun_name <- select(fun_sample, functions) %>% pull()
     ans_correct <- fun_sample %>% select(package) %>% pull()
-    dup_lookup <- tidy_funs %>% 
-      filter(functions == fun_name) %>% 
-      pull(package)
+    # Also get packages that have a function with the same name as ans_correct
+    # so we don't see these as a wrong answer as well
+    dup_lookup <-  filter(tidy_funs, functions == fun_name) %>% pull(package)
+    # Slightly alter the seed to generate a wrong answer
     set.seed(seed_val + 3)  # needs to be a different seed to ans_wrong1
     wrong1 <- ans_wrong1()
     wrong2 <- ans_wrong2()
     ans_wrong3 <- tidy_funs %>%
       distinct(package) %>%
-      filter(!package %in% c(dup_lookup, wrong1, wrong2)) %>%
+      filter(!package %in% c(dup_lookup, wrong1, wrong2)) %>%  # also exclude pre-selected wrong answer
       sample_n(1) %>%
       pull()
     return(ans_wrong3)

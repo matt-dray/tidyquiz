@@ -195,3 +195,5 @@ quiz(
 ```
 
 Made with [{learnr}](https://rstudio.github.io/learnr/), the [tidyverse](https://www.tidyverse.org/) and [{pacman}](https://cran.r-project.org/web/packages/pacman/index.html).
+
+[Read a blogpost about this.](https://www.rostrum.blog/2019/03/18/tidyverse-quiz/)
