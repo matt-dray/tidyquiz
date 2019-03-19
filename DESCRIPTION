@@ -24,7 +24,6 @@ Suggests:
     crayon,
     dplyr,
     dbplyr,
-    emo,
     forcats,
     ggplot2,
     haven,

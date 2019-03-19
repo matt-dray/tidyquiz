@@ -14,7 +14,6 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(learnr))
 suppressPackageStartupMessages(library(pacman))
 suppressPackageStartupMessages(library(shiny))
-suppressPackageStartupMessages(library(emo))
 
 # Character vector of tidyverse package names (and try to protect from rogue
 # characters in package name; happened with readxl)
@@ -37,11 +36,11 @@ tidy_funs <-
 
 <br>
 
-`r emo::ji("information_source")` Can you select the correct package for the named tidyverse function? Made with [{learnr}](https://rstudio.github.io/learnr/), the [tidyverse](https://www.tidyverse.org/) and [{pacman}](https://cran.r-project.org/web/packages/pacman/index.html).
+Can you select the correct package for the named tidyverse function? Made with [{learnr}](https://rstudio.github.io/learnr/), the [tidyverse](https://www.tidyverse.org/) and [{pacman}](https://cran.r-project.org/web/packages/pacman/index.html).
 
-`r emo::ji("twisted_rightwards_arrows")` Generate a random question by setting a seed value and pressing 'Go'. Use this seed again to retrieve the same question.
+Generate a random question by setting a seed value and pressing 'Go'. Use this seed again to retrieve the same question.
 
-`r emo::ji("new")` For a new question, click 'Start Over' in the menu pane, select a new seed value and hit 'Go'.
+For a new question, click 'Start Over' in the menu pane, select a new seed value and hit 'Go'.
 
 ```{r, button, echo=FALSE}
 # This chunk contains a Shiny action button
