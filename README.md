@@ -12,30 +12,19 @@ A silly thing made with the [{learnr}](https://rstudio.github.io/learnr/) packag
 
 ## How to
 
-Install and load
+Available here: https://mattdray.shinyapps.io/tidyquiz/
+
+Or install locally and run it with the following commands:
 
 1. `remotes::install_github("matt-dray/tidyquiz")` to install this package
 1. `library(tidyquiz)` to load the package
 1. `learnr::run_tutorial("tidy", package = "tidyquiz")` to open in your browser
 
-Use
-
-1. In your browser, choose a seed to randomise the question and answers and hit 'Go'
-1. Make a selection by clicking an answer and clicking 'Submit Answer' (you'll find out if you were right, or what the correct answer is)
-
-New question
-
-1. Click 'Start Over' in the menu bar
-1. Choose a new seed
-1. Hit 'Go'
-
-See the gif above to see how to do it.
-
 ## Notes
 
 ### Do I have to install loads of packages for this to work?
 
-Yes. This thing works on the fly. It fetches the tidyverse packages and creates questions and answers whenever you run `generate_quiz()`. This means you should be prepared for all the tidyverse packages to be downloaded to your machine. On the plus side, functions presented to you in the quiz will always be current.
+Yes, if installing locally. This thing works on the fly. It fetches the tidyverse packages and creates questions and answers whenever you run `generate_quiz()`. This means you should be prepared for all the tidyverse packages to be downloaded to your machine. On the plus side, functions presented to you in the quiz will always be current.
 
 The list of packages can be found in `tidyverse::tidyverse_packages()`. At time of writing (2019-03-17) the packages are:
 
