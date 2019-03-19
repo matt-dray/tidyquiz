@@ -40,7 +40,7 @@ Can you select the correct package for the named tidyverse function? Made with [
 
 Generate a random question by setting a seed value and pressing 'Go'. Use this seed again to retrieve the same question.
 
-For a new question, click 'Start Over' in the menu pane, select a new seed value and hit 'Go'.
+For a new question, click 'Start Over' in the menu pane (if on mobile, click 'Tidyquiz' above to access this), select a new seed value and hit 'Go'.
 
 ```{r, button, echo=FALSE}
 # This chunk contains a Shiny action button
