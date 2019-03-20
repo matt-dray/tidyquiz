@@ -8,7 +8,7 @@ Authors@R:
            email = "mwdray@gmail.com")
 Description: The package contains a multiple-choice quiz built with {learnr}
     to test your knowledge of the functions of the tidyverse.
-License: CC0
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
