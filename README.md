@@ -1,11 +1,10 @@
-# Tidyverse functions quiz
+# tidyquiz
 
 <!-- badges: start -->
+[![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
+[![](https://img.shields.io/badge/Shiny-shinyapps.io-blue?style=flat&labelColor=white&logo=RStudio&logoColor=blue)](mattdray.shinyapps.io/tidyquiz/)
 [![Blog post](https://img.shields.io/badge/rostrum.blog-post-008900?labelColor=000000&logo=data%3Aimage%2Fgif%3Bbase64%2CR0lGODlhEAAQAPEAAAAAABWCBAAAAAAAACH5BAlkAAIAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAAC55QkISIiEoQQQgghRBBCiCAIgiAIgiAIQiAIgSAIgiAIQiAIgRAEQiAQBAQCgUAQEAQEgYAgIAgIBAKBQBAQCAKBQEAgCAgEAoFAIAgEBAKBIBAQCAQCgUAgEAgCgUBAICAgICAgIBAgEBAgEBAgEBAgECAgICAgECAQIBAQIBAgECAgICAgICAgECAQECAQICAgICAgICAgEBAgEBAgEBAgICAgICAgECAQIBAQIBAgECAgICAgIBAgECAQECAQIBAgICAgIBAgIBAgEBAgECAgECAgICAgICAgECAgECAgQIAAAQIKAAAh%2BQQJZAACACwAAAAAEAAQAAAC55QkIiESIoQQQgghhAhCBCEIgiAIgiAIQiAIgSAIgiAIQiAIgRAEQiAQBAQCgUAQEAQEgYAgIAgIBAKBQBAQCAKBQEAgCAgEAoFAIAgEBAKBIBAQCAQCgUAgEAgCgUBAICAgICAgIBAgEBAgEBAgEBAgECAgICAgECAQIBAQIBAgECAgICAgICAgECAQECAQICAgICAgICAgEBAgEBAgEBAgICAgICAgECAQIBAQIBAgECAgICAgIBAgECAQECAQIBAgICAgIBAgIBAgEBAgECAgECAgICAgICAgECAgECAgQIAAAQIKAAA7)](https://www.rostrum.blog/2019/03/18/tidyverse-quiz/)
 <!-- badges: end -->
-
-
-_Very much in development_
 
 ![Answering a question and geting a new one](https://raw.githubusercontent.com/matt-dray/tidyverse-quiz/master/images/tidyverse_quiz.gif)
 
@@ -17,11 +16,12 @@ A silly thing made with the [{learnr}](https://rstudio.github.io/learnr/) packag
 
 ## How to
 
-Available here: https://mattdray.shinyapps.io/tidyquiz/
+You can [access the app online](https://mattdray.shinyapps.io/tidyquiz/), hosted with a free shinyapps.io account.
 
 Or install locally and run it with the following commands:
 
-1. `remotes::install_github("matt-dray/tidyquiz")` to install this package
+1. `install.packages("learnr")` to install {learnr} from CRAN
+1. `remotes::install_github("matt-dray/tidyquiz")` to install this package from GitHub
 1. `library(tidyquiz)` to load the package
 1. `learnr::run_tutorial("tidy", package = "tidyquiz")` to open in your browser
 
